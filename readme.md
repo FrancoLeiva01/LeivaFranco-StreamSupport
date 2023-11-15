@@ -13,3 +13,9 @@ Bebas Neue
 
 ## Diseño de Ecommerce Figma
 Link de diseño en Figma: https://www.figma.com/file/0Pc4xUbKrAZGWJPrW1XAQD/Dise%C3%B1o-de-la-pagina-y-Paleta-de-colores?type=design&node-id=6%3A416&mode=design&t=dn6i7vQ5arF6HLSU-1
+
+## Paleta de colores
+Color de fondo de la pagina: CBC0D3
+Color de la barra superior: 0075F2
+Color de cada caja con articulos, barra de navegacion, articulos de carrito: D9D9D9
+Color de fondo en mobile register y login: 1D4E89
