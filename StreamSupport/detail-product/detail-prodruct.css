@@ -1,0 +1,274 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 20px;
+    font-family: "Roboto", "Times New Roman", serif;
+  }
+
+
+  body {
+    background-color: #2d2b2f;
+}
+
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar a:hover {
+    background-color: gray;
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 63px;
+    background-color: #0075f2;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+.barra-nav {
+    width: 1300px;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+  }
+  
+  .barra {
+    width: 1000px;
+  }
+
+.navbar {
+    display: flex;
+    margin-right: 10px;
+    justify-content: space-between;
+}
+
+.logo {
+    margin-left: 30px;
+
+}
+
+.logo a {
+    font-family: "Roboto", "Times New Roman", serif;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+.navbar a {
+    display: block;
+    margin: 5px;
+    padding: 23px 20px;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+
+
+section {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-left: 45px;
+    padding-top: 10px;
+    max-width: 3000px;
+    gap: 20px;
+    justify-content: center;
+    margin: auto;
+}
+
+.tarjeta-product {
+    background-color: #CBC0D3;
+    border: 2px solid black;
+    margin-top: 100px;
+    display: flex;
+    justify-content: flex-start;
+    width: 1200px;
+    height: 900px;
+    box-shadow: 3px 3px 10px black;
+    padding: 1rem;
+    & h3 {
+        font-weight: 900;
+        font-size: 2rem;
+        margin-bottom: 20px
+    }
+    & span {
+        font-size: 2.5rem;
+    }
+    & p {
+        font-weight: 400;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    & button {
+        margin-bottom: 10px;
+        padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    box-shadow: 3px 3px 10px black;
+  }
+}
+
+.img {
+    display: flex;
+    width: 600px;
+    height: 550px;
+    border-radius: 5%;
+}
+
+.detalles-producto {
+    display: flex;
+    margin-left: 70px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+ul {
+    display: block;
+        list-style-type: disc;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+
+}
+
+.medios-pago {
+    text-decoration: none;
+    color: #0075f2;
+}
+
+.forma-entrega {
+    text-decoration: none;
+}
+.caja-botones {
+    height: 300px;
+    
+}
+
+.botones {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.forma-entrega {
+    display: flex;
+    justify-content: center;
+    color:#0075f2
+}
+
+.precio-metodospago {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mycheck {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.title-details {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 32px;
+}
+
+
+.product-relacionado {
+    font-family: "Roboto", "Times New Roman", serif;
+        font-size: 50px;
+        color: #ffffff;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .ver-todo {
+        font-family: "Roboto", "Times New Roman", serif;
+        color: #6fa7e3;
+        text-decoration: none;
+        font-size: 27px;
+        display: flex;
+        padding-top: 22px;
+        padding-left: 10px;
+    }
+
+    .tarjetas_container2 {
+        padding-top: 10px;
+        flex-wrap: wrap;
+        max-width: 3000px;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin: auto;
+    }
+
+    .tarjeta1{
+        box-shadow: 3px 3px 10px;
+        padding: 1rem;
+        & h3 {
+            font-weight: 900;
+            font-size: 1.5rem;
+        }
+        & p {
+            font-weight: 400;
+            font-size: 1rem;
+            text-align: center;
+        }
+        & button {
+            margin-bottom: 10px;
+            padding: 0.5rem 1rem;
+        background-color: #007bff;
+        color: white;
+        box-shadow: 3px 3px 10px black;
+      }
+    }
+
+    .img2 {
+        width: 300px;
+        height: 300px;
+    }
+
+    @media (max-width: 768px) {
+
+
+        .caja-botones {
+            margin-left: 20px;
+        }
+
+.img {
+    margin-left: 250px;
+}
+
+        .barra {
+            width: 520px;
+        }
+
+.tarjeta-product {
+    flex-direction: column;
+    width: 1200px;
+    height: 1400px;
+}
+
+.detalles-producto{
+
+flex-direction: column;
+flex-wrap: wrap;
+align-items: flex-start;
+align-content: space-around;
+}
+
+    }
