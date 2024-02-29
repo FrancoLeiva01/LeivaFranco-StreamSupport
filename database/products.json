@@ -1,0 +1,17 @@
+[
+  {
+    "id": "f6c67fb9-b7f6-486f-970c-9cef16a42ac4",
+    "nombre": "Procesador gamer AMD Ryzen 5 5600X",
+    "precio": "303.000"
+  },
+  {
+    "id": "72d87279-cfd8-4b0c-930b-56bb73cf750a",
+    "nombre": "Gabinete Andromeda",
+    "precio": "135.000"
+  },
+  {
+    "id": "66adad5a-e8ff-4060-8e62-9772960c6d9f",
+    "usuario": "computadora",
+    "password": "30000"
+  }
+]
