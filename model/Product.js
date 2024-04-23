@@ -20,6 +20,7 @@ findById: function(id){
     const producto = productos.find((product)=> product.id === id)
     return producto;
 },
+
 updateProduct: function(id, product){
 const productos = readFileJSON(dbFile);
 const indexProducto = productos.findIndex((product)=> product.id === id);
@@ -28,6 +29,13 @@ productos[indexProducto]={
     ...product
 }
 writeFileJSON(dbFile, productos);
+},
+
+removeProduct: function(id){
+    const productos = readFileJSON(dbFile);
+    const indexProducto = productos.findIndex((product)=>product.id === id);
+    productos.splice(indexProducto, 1);
+    writeFileJSON(dbFile, productos);
 }
 }
 

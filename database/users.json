@@ -1,14 +1,8 @@
 [
   {
-    "usuario": "franco",
-    "password": 123
-  },
-  {
-    "usuario": "franco",
-    "password": 123
-  },
-  {
-    "usuario": "agustin",
-    "password": 54321
+    "id": "2aa0ad05-37d4-4fc1-8387-51d17f698dbb",
+    "user": "cristina",
+    "password": "$2b$10$2ahMLaKxxkrGjCJACi87h.vZtj7lDsXd1pKhU0yif/Q9UtaiJIR.W",
+    "email": "matias321@gmail.com"
   }
 ]

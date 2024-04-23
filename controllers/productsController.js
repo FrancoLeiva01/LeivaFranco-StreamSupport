@@ -23,7 +23,15 @@ const updateProduct = (req, res)=>{
     const {id}= req.params;
     const product = req.body;
     Product.updateProduct(id, product);
-    res.json({msg: "Producto actualizado Correctamente"})
+    res.json({msg: "Producto actualizado Correctamente"});
 }
 
-module.exports = {addProducts, getProducts, getProductById, updateProduct};
+const deleteProduct = async(req,res)=>{
+    const { id } = req.params;
+    await Product.destroy({ where: { id_product: id } });
+    res.json({msg: "Producto eliminado correctamente"}); 
+}
+
+
+
+module.exports = {addProducts, getProducts, getProductById, updateProduct, deleteProduct};

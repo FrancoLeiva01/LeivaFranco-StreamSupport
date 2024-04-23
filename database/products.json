@@ -13,5 +13,15 @@
     "id": "66adad5a-e8ff-4060-8e62-9772960c6d9f",
     "usuario": "computadora",
     "password": "30000"
+  },
+  {
+    "id": "6826c95f-442e-4249-b2f0-3a19c92cc18b",
+    "name": "gabinete numero 1",
+    "price": "500.000"
+  },
+  {
+    "id": "b900c1da-c0bb-45e9-9393-6aae844d71d4",
+    "name": "gabinete 2",
+    "price": "600.000"
   }
 ]
