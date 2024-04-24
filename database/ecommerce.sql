@@ -1,35 +1,36 @@
-CREATE DATABASE registro;
-USE registro;
+CREATE DATABASE ecommerce;
 
-CREATE table usuarios (
-idUsuario int auto_increment primary key UNIQUE,
-nombre varchar(100),
-contraseña varchar(50),
-email varchar(50)
+USE ecommerce;
+
+CREATE TABLE productos (
+product_id INT AUTO_INCREMENT PRIMARY KEY,
+product_name VARCHAR(100) NOT NULL,
+product_description TEXT,
+price DECIMAL (10, 2) NOT NULL,
+stock INT NOT NULL
 );
 
-CREATE table productos (
-idProducto int auto_increment primary key,
-nombre varchar (100),
-descripcion varchar (200),
-precio varchar (50),
-stock varchar(50)
+CREATE TABLE usuarios (
+idUsuario int auto_increment primary key,
+user varchar(100) UNIQUE NOT NULL,
+password varchar(50) NOT NULL,
+email varchar(50) NOT NULL
 );
 
 CREATE table ordenesDeVenta (
 idOrden int auto_increment primary key,
-usuario int,
-fecha varchar (50),
-estado varchar (50),
-FOREIGN KEY (usuario) REFERENCES usuarios (idUsuario) 
+orden_date DATETIME NOT NULL,
+total_order DECIMAL (10, 2) NOT NULL,
+idUsuario INT,
+FOREIGN KEY (idUsuario) REFERENCES usuarios (idUsuario)
 );
 
-CREATE table detallesdDeVenta (
+CREATE table detallesDeVenta (
 IdDetalle int auto_inCrement primary key,
-orden int,
-producto int,
-cantidad varchar (100),
-precio varchar (50),
-FOREIGN KEY (orden) REFERENCES ordenesDeVenta (idOrden),
-FOREIGN KEY (producto) REFERENCES productos (idProducto)
+idOrden INT NOT NULL,
+product_id int NOT NULL, 
+cantidad int not null,
+price DECIMAL (10, 2) NOT NULL,
+FOREIGN KEY (idOrden) REFERENCES ordenesDeVenta (idOrden),
+FOREIGN KEY (product_id) REFERENCES productos (product_id)
 );
