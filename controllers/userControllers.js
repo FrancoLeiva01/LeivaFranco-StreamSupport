@@ -1,4 +1,11 @@
-const { addUser, findByID, findAll, update, deleteByUserName,  findByUserName } = require("../model/User");
+const {
+  findByID,
+  findAll,
+  update,
+  deleteByUserName,
+  findByUserName,
+} = require("../model/User");
+const User = require("../models/user");
 const { uuid } = require("uuidv4");
 const { hashSync, genSaltSync, compareSync } = require("bcrypt");
 
@@ -24,9 +31,15 @@ const createUser = (req, res) => {
     password: hash,
     email,
   };
-
-  addUser(newUser);
-  res.json({ msg: "Usuario creado exitosamente", data: newUser });
+  console.log(User);
+  User = User();
+  try {
+    User.create(newUser);
+    res.json({ msg: "Usuario creado exitosamente", data: newUser });
+  } catch (error) {
+    console.log(error);
+    res.json("Error: User not created.");
+  }
 };
 
 const updateUser = (req, res) => {
@@ -42,23 +55,21 @@ const updateUser = (req, res) => {
 
 const deleteUser = (req, res) => {
   const { idUsuario } = req.params;
-  const usersFilter = deleteByUserName(idUsuario)
+  const usersFilter = deleteByUserName(idUsuario);
   res.send(`usuario id: ${idUsuario}, eliminado`);
 };
 
 const loginDemo = (req, res) => {
   const { usuario, password } = req.body;
-  console.log(password)
-  const userBusqueda = findByUserName(usuario)
-  console.log(userBusqueda)
+  console.log(password);
+  const userBusqueda = findByUserName(usuario);
+  console.log(userBusqueda);
   const valid = compareSync(password, userBusqueda.password); // true
-  if (valid){
-    res.send("Logeado exitosamente")
+  if (valid) {
+    res.send("Logeado exitosamente");
   }
-  res.send("Contraseña incorrecta")
-
-}
-
+  res.send("Contraseña incorrecta");
+};
 
 //exportamos un objeto de funciones
 module.exports = {
@@ -67,5 +78,5 @@ module.exports = {
   updateUser,
   createUser,
   deleteUser,
-  loginDemo
+  loginDemo,
 };

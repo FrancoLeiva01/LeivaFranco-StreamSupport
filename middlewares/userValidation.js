@@ -20,15 +20,14 @@ const userValidationRules = (req, res, next) => {
   next();
 };
 
-const validateUserId = [
-  check("id").isUUID().withMessage(" Must be a valid UUID"),
-  (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    next();
-  },
-];
+const validateUserId = []
+//   check("id").isUUID().withMessage(" Must be a valid UUID"),
+//   (req, res, next) => {
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//       return res.status(400).json({ errors: errors.array() });
+//     }
+//     next();
+//   },
 
 module.exports = { userConditions, validateUserId, userValidationRules };

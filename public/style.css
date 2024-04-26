@@ -24,6 +24,7 @@ body {
     grid-area: "c";
 }
 .productos {
+    padding-left: 10px;
     font-family: "Roboto", "Times New Roman", serif;
     font-size: 50px;
     color: #ffffff;
@@ -57,11 +58,16 @@ header {
 
 .logo {
     margin-left: 30px;
+    font-family: "Roboto", "Times New Roman", serif;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 20px;
 
 }
 
 .logo a {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Roboto", "Times New Roman", serif;
     text-decoration: none;
     color: white;
     text-transform: uppercase;
@@ -148,7 +154,6 @@ p {
 
 .tarjetas_container {
     max-width: 600px;
-    width: 90%;
     padding-top: 10px;
     flex-wrap: wrap;
     max-width: 3000px;
@@ -196,8 +201,9 @@ section {
         font-size: 1.5rem;
     }
     & p {
-        font-weight: 400;
-        font-size: 1rem;
+        padding-top: 10px;
+        font-weight: 900;
+        font-size: 1.5rem;
         text-align: center;
     }
     & button {
@@ -226,6 +232,7 @@ section {
 }
 
 .barra {
+    padding-left: 5px;
   width: 1000px;
 }
 
@@ -239,7 +246,11 @@ h3 {
 }
 
 .oferta {
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: "Roboto", "Times New Roman", serif;
+    font-weight: 1000;
     font-size: 50px;
     color: #ffffff;
     display: flex;
