@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "admin",
-    "database": "database_development",
+    "password": "Herma8692",
+    "database": "ecommerce",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

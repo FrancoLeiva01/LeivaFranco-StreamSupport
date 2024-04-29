@@ -1,16 +1,9 @@
-const {
-  findByID,
-  findAll,
-  update,
-  deleteByUserName,
-  findByUserName,
-} = require("../model/User");
-const User = require("../models/user");
-const { uuid } = require("uuidv4");
+
+const User = require("../models").usuarios;
 const { hashSync, genSaltSync, compareSync } = require("bcrypt");
 
-const getAllUsers = (req, res) => {
-  const users = findAll();
+const getAllUsers = async (req, res) => {
+  const users = await User.findAll();
   res.json({ data: users });
 };
 
@@ -20,21 +13,18 @@ const getUserById = (req, res) => {
   res.json({ data: user });
 };
 
-const createUser = (req, res) => {
+const createUser = async (req, res) => {
   const { usuario, password, email } = req.body;
   const saltRounds = 10;
   const salt = genSaltSync(saltRounds);
   const hash = hashSync(password, salt);
   const newUser = {
-    id: uuid(),
     user: usuario,
     password: hash,
     email,
   };
-  console.log(User);
-  User = User();
   try {
-    User.create(newUser);
+    await User.create(newUser);
     res.json({ msg: "Usuario creado exitosamente", data: newUser });
   } catch (error) {
     console.log(error);
