@@ -2,6 +2,11 @@ CREATE DATABASE ecommerce;
 
 USE ecommerce;
 
+CREATE TABLE category (
+    id_category INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(30)
+);
+ 
 CREATE TABLE productos (
 product_id INT AUTO_INCREMENT PRIMARY KEY,
 product_name VARCHAR(100) NOT NULL,
