@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       DetailOrder.belongsTo(models.Product, {foreignKey: "product_id"})
     }
   }
-  detailorder.init({
+  DetailOrder.init({
     IdDetalle: {
       type: DataTypes.INTEGER,
       allowNull: false,
