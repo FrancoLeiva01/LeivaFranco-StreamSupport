@@ -20,6 +20,7 @@ const userValidationRules = (req, res, next) => {
   next();
 };
 
+
 const validateUserId = []
 //   check("id").isUUID().withMessage(" Must be a valid UUID"),
 //   (req, res, next) => {
@@ -30,4 +31,4 @@ const validateUserId = []
 //     next();
 //   },
 
-module.exports = { userConditions, validateUserId, userValidationRules };
+module.exports = { userConditions, validateUserId, userValidationRules, validatorLoginRules, validatorLoginUser};

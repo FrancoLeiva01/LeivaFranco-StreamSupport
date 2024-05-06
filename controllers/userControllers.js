@@ -1,5 +1,6 @@
 
 const User = require("../models").usuarios;
+const bcrypt = require("bcrypt");
 const { hashSync, genSaltSync, compareSync } = require("bcrypt");
 
 const getAllUsers = async (req, res) => {
@@ -48,6 +49,7 @@ const deleteUser = (req, res) => {
   const usersFilter = deleteByUserName(idUsuario);
   res.send(`usuario id: ${idUsuario}, eliminado`);
 };
+
 
 const loginDemo = (req, res) => {
   const { usuario, password } = req.body;
