@@ -43,11 +43,11 @@ const updateCategory = async (req, res) => {
   try {
     await Category.update(
       {
-        category_name: oldCategory.nombre,
+        name: oldCategory.nombre,
       },
       {
         where: {
-          id: idCategoria,
+          id: id_category,
         },
       }
     );

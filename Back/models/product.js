@@ -39,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
         model: "category",
         key: "id_category",
       },
+    },
 
     product_description: {
       type: DataTypes.STRING,
@@ -46,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
 
     stock: DataTypes.STRING
   },
+  {
     sequelize,
     modelName: 'Product',
   });

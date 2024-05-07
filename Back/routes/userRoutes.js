@@ -1,4 +1,4 @@
-//gestion de usuarios clase mati
+//gestion de usuarios
 const express = require("express");
 const {
   createUser,

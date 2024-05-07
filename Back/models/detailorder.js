@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       references:{
         model: "saleorders",
         key: "id_order"
+      }
     },
 
     product_id: {
@@ -41,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
 
     price: DataTypes.DECIMAL(6, 2),
   },
+  {
     sequelize,
     modelName: 'DetailOrder',
   });

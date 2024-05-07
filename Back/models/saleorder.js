@@ -31,6 +31,8 @@ module.exports = (sequelize, DataTypes) => {
         key: "idUsuario"
     },
   },
+},
+  {
     sequelize,
     modelName: 'SaleOrder',
   });

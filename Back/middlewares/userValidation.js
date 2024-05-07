@@ -31,4 +31,4 @@ const validateUserId = []
 //     next();
 //   },
 
-module.exports = { userConditions, validateUserId, userValidationRules, validatorLoginRules, validatorLoginUser};
+module.exports = { userConditions, validateUserId, userValidationRules};
