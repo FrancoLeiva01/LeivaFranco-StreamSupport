@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class SaleOrder extends Model {
     /**
@@ -10,35 +8,36 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      SaleOrder.belongsTo(models.User, {foreignKey: "idUsuario"})
+      SaleOrder.belongsTo(models.User, { foreignKey: "idUsuario" });
     }
   }
-  SaleOrder.init({
-    idOrden : {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true
-    },
-    orden_date: DataTypes.STRING,
+  SaleOrder.init(
+    {
+      idOrden: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      orden_date: DataTypes.STRING,
 
-    total_order: DataTypes.DECIMAL(6, 2),
+      total_order: DataTypes.DECIMAL(6, 2),
 
-    idUsuario: {
-      type: DataTypes.INTEGER,
-      references:{
-        model: "usuarios",
-        key: "idUsuario"
+      idUsuario: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "usuarios",
+          key: "idUsuario",
+        },
+      },
     },
-  },
-},
-  {
-    sequelize,
-    modelName: 'SaleOrder',
-  });
+    {
+      sequelize,
+      modelName: "SaleOrder",
+    }
+  );
   return SaleOrder;
 };
-
 
 // CREATE table ordenesDeVenta (
 //   idOrden int auto_increment primary key,

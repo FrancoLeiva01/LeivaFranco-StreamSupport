@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -13,38 +11,39 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  User.init({
-    idUsuario: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-      allowNull: false
-    },
+  User.init(
+    {
+      idUsuario: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
+      },
 
-    user: {
-      type: DataTypes.STRING(10),
-      allowNull: false
-    },
+      user: {
+        type: DataTypes.STRING(10),
+        allowNull: false,
+      },
 
-    password: {
-      type: DataTypes.STRING(8),
-      allowNull: false
-    },
+      password: {
+        type: DataTypes.STRING(8),
+        allowNull: false,
+      },
 
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize,
+      modelName: "User",
+      id: false,
     }
-
-  }, {
-    sequelize,
-    modelName: 'User',
-    id: false
-  });
-  User.removeAttribute("id")
+  );
+  User.removeAttribute("id");
   return User;
 };
-
 
 // CREATE TABLE usuarios (
 //   idUsuario int auto_increment primary key,

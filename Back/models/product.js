@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     /**
@@ -15,46 +13,44 @@ module.exports = (sequelize, DataTypes) => {
   }
   Product.init(
     {
-    product_id:{
-     type: DataTypes.INTEGER,
-     allownull: false,
-     primaryKey: true,
-    autoIncrement: true,
-    },
-      
-    product_name: {
-     type: DataTypes.STRING,
-      allownull: false
-    },
-    
-    price: {
-      type: DataTypes.DECIMAL (10, 2),
-      allownull: false
-
-    },
-
-    id_category: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "category",
-        key: "id_category",
+      product_id: {
+        type: DataTypes.INTEGER,
+        allownull: false,
+        primaryKey: true,
+        autoIncrement: true,
       },
-    },
 
-    product_description: {
-      type: DataTypes.STRING,
-    },
+      product_name: {
+        type: DataTypes.STRING,
+        allownull: false,
+      },
 
-    stock: DataTypes.STRING
-  },
-  {
-    sequelize,
-    modelName: 'Product',
-  });
+      price: {
+        type: DataTypes.DECIMAL(10, 2),
+        allownull: false,
+      },
+
+      id_category: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "category",
+          key: "id_category",
+        },
+      },
+
+      product_description: {
+        type: DataTypes.STRING,
+      },
+
+      stock: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "Product",
+    }
+  );
   return Product;
 };
-
-
 
 // CREATE TABLE productos (
 //   product_id INT AUTO_INCREMENT PRIMARY KEY,
