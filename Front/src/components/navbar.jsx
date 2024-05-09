@@ -59,7 +59,8 @@ header {
   }
 
   .barra-nav {
-    min-width: 250px;
+    height: 40px;
+    min-width: 400px;
     padding: 10px;
     margin: 10px;
     display: flex;
@@ -73,6 +74,7 @@ header {
   @media (max-width: 768px) {
     /* .barra {
       width: 554px;
+
     } */
     .head {
       flex-direction: column;
@@ -92,9 +94,8 @@ header {
         .barra-nav {
           min-width: 600px;
         }
-    }
+      
 `;
-
 
 function Navbar() {
   return ( 
