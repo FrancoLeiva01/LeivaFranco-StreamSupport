@@ -1,7 +1,7 @@
 const { body, validationResult } = require("express-validator");
 
 const productConditions = [
-  body("name")
+  body("product_name")
     .notEmpty()
     .isString()
     .withMessage("Nombre del producto invalido"),

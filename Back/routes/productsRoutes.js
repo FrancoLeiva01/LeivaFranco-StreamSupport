@@ -1,10 +1,6 @@
 const express = require("express");
 const {
-  addProducts,
-  getProducts,
-  getProductById,
-  updateProduct,
-  deleteProduct,
+  addProducts, getProducts, getProductById, updateProduct, deleteProduct
 } = require("../controllers/productsController");
 const {
   productConditions,

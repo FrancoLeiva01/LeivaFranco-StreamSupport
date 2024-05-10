@@ -1,40 +1,36 @@
-const Product = require("../model/Product");
+const Product = require("../models").Product;
 
-const addProducts = (req, res) => {
-  const product = req.body;
-  console.log(product);
-  Product.create(product);
-  res.json({ msg: "producto agregado exitosamente" });
-};
+const addProducts = async (req, res)=>{
+    const {product_name, price, id_category, description} = req.body;
+    const user = await Product.create({product_name, price, id_category, description});
+    res.json({msg: "Producto agregado exitosamente", data: user});
+}
 
-const getProducts = (req, res) => {
-  const products = Product.findAll();
-  res.json({ msg: "Productos", data: products });
-};
+const getProducts = async (req, res)=>{
+    const products = await Product.findAll();
+    res.json({msg:"Productos", data: products});
+}
 
-const getProductById = (req, res) => {
-  const { id } = req.params;
-  const product = Product.findById(id);
-  res.json({ msg: `Producto con id ${id}`, data: product });
-};
+const getProductById = async(req, res)=>{
+    const { id } = req.params;
+    const product = await Product.findByPk(id);
+    res.json({msg:`Producto con id ${id}`, data: product});
+}
 
-const updateProduct = (req, res) => {
-  const { id } = req.params;
-  const product = req.body;
-  Product.updateProduct(id, product);
-  res.json({ msg: "Producto actualizado Correctamente" });
-};
+const updateProduct = async(req, res)=>{
+    const {id}=req.params;
+    const product = req.body;
+    await Product.update(product, {
+        where:{
+            id_product: id
+        }
+    });
+    res.json({msg:"Producto actualizado correctamente"});
+}
 
-const deleteProduct = async (req, res) => {
-  const { id } = req.params;
-  await Product.destroy({ where: { id_product: id } });
-  res.json({ msg: "Producto eliminado correctamente" });
-};
-
-module.exports = {
-  addProducts,
-  getProducts,
-  getProductById,
-  updateProduct,
-  deleteProduct,
-};
+const deleteProduct = async(req,res)=>{
+    const { id } = req.params;
+    await Product.destroy({ where: { id_product: id } });
+    res.json({msg: "Producto eliminado correctamente"}); 
+}
+module.exports = {addProducts, getProducts, getProductById, updateProduct, deleteProduct};

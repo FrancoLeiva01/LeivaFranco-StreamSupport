@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       password: {
-        type: DataTypes.STRING(8),
+        type: DataTypes.STRING(255),
         allowNull: false,
       },
 
@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "User",
+      tableName: "usuarios",
       id: false,
     }
   );
