@@ -25,8 +25,8 @@ const getCategoryById = async (req, res) => {
 
 const createCategory = async (req, res) => {
   try {
-    const { nombre } = req.body;
-    const newCategory = await Category.create({ name: nombre });
+    const { name } = req.body;
+    const newCategory = await Category.create({ name: name });
     return res
       .status(201)
       .json({ message: "Categoria creada correctamente", data: newCategory });
