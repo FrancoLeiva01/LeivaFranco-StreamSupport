@@ -1,5 +1,6 @@
 const Category = require("../models").Category;
 
+// funciona
 const getAllCategories = async (req, res) => {
   try {
     const categories = await Category.findAll({
@@ -12,6 +13,7 @@ const getAllCategories = async (req, res) => {
   }
 };
 
+//funciona
 const getCategoryById = async (req, res) => {
   try {
     const { idCategoria } = req.params;
@@ -23,6 +25,7 @@ const getCategoryById = async (req, res) => {
   }
 };
 
+// funciona
 const createCategory = async (req, res) => {
   try {
     const { name } = req.body;
@@ -36,6 +39,7 @@ const createCategory = async (req, res) => {
   }
 };
 
+//funciona
 const updateCategory = async (req, res) => {
   const oldCategory = req.body;
   const { idCategoria } = req.params;
@@ -43,11 +47,11 @@ const updateCategory = async (req, res) => {
   try {
     await Category.update(
       {
-        name: oldCategory.nombre,
+        name: oldCategory.name,
       },
       {
         where: {
-          id: id_category,
+          id_category: idCategoria,
         },
       }
     );
@@ -60,12 +64,13 @@ const updateCategory = async (req, res) => {
   }
 };
 
+// funciona
 const deleteCategory = async (req, res) => {
   const { idCategoria } = req.params;
   try {
     await Category.destroy({
       where: {
-        id: idCategoria,
+        id_category: idCategoria,
       },
     });
     return res.json({

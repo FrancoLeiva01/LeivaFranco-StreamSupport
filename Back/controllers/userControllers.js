@@ -2,17 +2,21 @@ const User = require("../models").User;
 const bcrypt = require("bcrypt");
 const { hashSync, genSaltSync, compareSync } = require("bcrypt");
 
+// funciona
 const getAllUsers = async (req, res) => {
   const users = await User.findAll();
   res.json({ data: users });
 };
 
-const getUserById = (req, res) => {
+// funciona
+const getUserById = async (req, res) => {
   const { idUsuario } = req.params;
-  const user = findByID(idUsuario);
-  res.json({ data: user });
+  const user = await User.findByPk(idUsuario);
+  res.json({ msg: `Usuario con id ${idUsuario}`, data: user });
 };
 
+
+// funciona
 const createUser = async (req, res) => {
   const { usuario, password, email } = req.body;
   const saltRounds = 10;
@@ -32,21 +36,23 @@ const createUser = async (req, res) => {
   }
 };
 
-const updateUser = (req, res) => {
-  const { idUsuario } = req.params;
-  const { usuario, password } = req.body;
-  const newUser = {
-    user: usuario,
-    password,
-  };
-  update(idUsuario, newUser);
-  res.json({ msg: "usuario editado correctamente" });
+// no se actualiza bien
+const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const user = req.body;
+  await User.update(user, {
+    where: {
+      idUsuario: id,
+    },
+  });
+  res.json({ msg: "Usuario actualizado correctamente" });
 };
 
-const deleteUser = (req, res) => {
+// funciona
+const deleteUser = async (req, res) => {
   const { idUsuario } = req.params;
-  const usersFilter = deleteByUserName(idUsuario);
-  res.send(`usuario id: ${idUsuario}, eliminado`);
+  await User.destroy({ where: { idUsuario: idUsuario } });
+  res.json({ msg: "Usuario eliminado correctamente" });
 };
 
 const loginDemo = (req, res) => {
