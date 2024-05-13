@@ -36,13 +36,13 @@ const createUser = async (req, res) => {
   }
 };
 
-// no se actualiza bien
+//funciona
 const updateUser = async (req, res) => {
-  const { id } = req.params;
+  const { idUsuario } = req.params;
   const user = req.body;
   await User.update(user, {
     where: {
-      idUsuario: id,
+      idUsuario: idUsuario,
     },
   });
   res.json({ msg: "Usuario actualizado correctamente" });

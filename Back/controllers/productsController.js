@@ -1,6 +1,6 @@
 const Product = require("../models").Product;
 
-// funciona (preguntar como hacer q permita $ y . en el price)
+// funciona 
 const addProducts = async (req, res) => {
   const { product_name, price, id_category, product_description, stock } = req.body;
   const user = await Product.create({

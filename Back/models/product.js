@@ -25,8 +25,13 @@ module.exports = (sequelize, DataTypes) => {
         allownull: false,
       },
 
+      image: {
+        type: DataTypes.STRING,
+        allownull: false,
+      },
+
       price: {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10, 3),
         allownull: false,
       },
 
