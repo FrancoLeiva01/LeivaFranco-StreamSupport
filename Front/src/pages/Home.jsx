@@ -3,24 +3,24 @@ import React, { useEffect, useState } from 'react'
 
 
 const Home = () => {
-  const [product, setProduct] = useState()
+  const [product, setProduct] = useState([])
   async function initialData () {
     await fetch("http://localhost:3000/products/") 
     .then(res => res.json())
     .then(res => setProduct(res.data))
     .catch(res => console.log(res)) 
-
   }
   useEffect(() => {
 initialData()
   }, [] )
+  console.log(product)
   return (
     <div>
-      {product.map((p) => {
+      { product.length ?  product.map((p) => {
 return (
   <div class="tarjeta box-1">
   <img class="img"
-  src={p.img}
+  src={p.image}
   alt="Perfil 1"
   />
   <h3>{p.nombre}</h3>
@@ -31,7 +31,8 @@ return (
   </div>
 </div> 
 )
-      })}
+      })
+    : <p>loading</p>}
     </div>
   )
 }
