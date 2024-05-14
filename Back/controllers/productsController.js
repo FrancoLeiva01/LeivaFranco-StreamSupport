@@ -2,13 +2,14 @@ const Product = require("../models").Product;
 
 // funciona 
 const addProducts = async (req, res) => {
-  const { product_name, price, id_category, product_description, stock } = req.body;
+  const { product_name, price, id_category, product_description, stock, image } = req.body;
   const user = await Product.create({
     product_name,
     price,
     id_category,
     product_description,
     stock,
+    image
   });
   res.json({ msg: "Producto agregado exitosamente", data: user });
 };
