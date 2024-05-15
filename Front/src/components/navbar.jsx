@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const NavContainer = styled.nav`
@@ -98,29 +98,41 @@ header {
 `;
 
 function Navbar() {
-  return ( 
-      <NavContainer>
-    <div class="head">
-<div class="logo">
-  
-  <a href="#">Stream Support</a>
-</div>
+  const navigate = useNavigate();
 
-<nav class="navbar">
-<div class="barra-nav">
-<input class="barra" type="search" id="site-search" name="buscador" placeholder="Buscar..." />
+  function handleClick() {
+    navigate("/cart");
 
-<button>Buscar</button>
-</div>
-<a href="#">Carrito</a>
-<a href="#">Usuario</a>
-</nav>
+    function handleClick() {
+      navigate("/register");
+    }
+  }
+  return (
+    <NavContainer>
+      <div class="head">
+        <div class="logo">
+          <a onClick={() => navigate("/")}>Stream Support</a>
+        </div>
 
-</div>
-              
+        <nav class="navbar">
+          <div class="barra-nav">
+            <input
+              class="barra"
+              type="search"
+              id="site-search"
+              name="buscador"
+              placeholder="Buscar..."
+            />
+
+            <button>Buscar</button>
+          </div>
+          <a onClick={handleClick}>Carrito</a>
+
+          <a onClick={() => navigate("/login")}>Acceder</a>
+        </nav>
+      </div>
     </NavContainer>
-
   );
-};
+}
 
-export default Navbar
+export default Navbar;

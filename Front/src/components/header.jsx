@@ -1,9 +1,8 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
 
 const HeaderContainer = styled.header`
-
-header {
+  header {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,15 +33,15 @@ header {
     text-decoration: none;
     background: #0075f2;
   }
-  
+
   .btn:hover {
     background: none;
   }
-  
+
   .btn-home {
     display: flex;
   }
-  
+
   .btn-home {
     margin: 0 10px;
   }
@@ -57,30 +56,30 @@ header {
 
   @media (max-width: 768px) {
     .head {
-        flex-direction: column;
-        padding: 20px 0;
-      }
-
-      .header {
-        width: 100%;
-      }
+      flex-direction: column;
+      padding: 20px 0;
     }
 
+    .header {
+      width: 100%;
+    }
+  }
 `;
 
 function Header() {
   return (
     <HeaderContainer>
-    <header class="content header">
-    <h2 class="title">Stream Support</h2>
+      <header className="content header">
+        <h2 className="title">Stream Support</h2>
 
-    <div class="btn-home">
-        <a href="#" class="btn">Saber mas</a>
-
-    </div>
-</header>
-</HeaderContainer>
+        <div className="btn-home">
+          <a href="#" className="btn">
+            Saber mas
+          </a>
+        </div>
+      </header>
+    </HeaderContainer>
   );
-};
+}
 
-export default Header
+export default Header;
