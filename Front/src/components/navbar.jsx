@@ -111,7 +111,7 @@ function Navbar() {
     <NavContainer>
       <div class="head">
         <div class="logo">
-          <a onClick={() => navigate("/")}>Stream Support</a>
+          <a onClick={() => navigate("/home")}>Stream Support</a>
         </div>
 
         <nav class="navbar">
