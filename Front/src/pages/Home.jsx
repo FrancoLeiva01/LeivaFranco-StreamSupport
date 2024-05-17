@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import parsePrice from "../functions/parsePrice";
+import { useNavigate } from "react-router-dom";
 
 const TarjetasContainer = styled.div`
   .box-1 {
@@ -162,6 +163,11 @@ const TarjetasContainer = styled.div`
 `;
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate("/detailproduct");
+  }
   const [product, setProduct] = useState([]);
   async function initialData() {
     await fetch("http://localhost:3000/products/")
@@ -192,6 +198,8 @@ const Home = () => {
             </option>
             <option value="Componentes">Componentes</option>
             <option value="computadoras">Pc Armadas</option>
+            <option value="notebook">Notebook</option>
+            <option value="accesorios">Accesorios</option>
             <option value="perifericos">Perifericos</option>
           </select>
         </h3>
@@ -205,7 +213,9 @@ const Home = () => {
                 <h3>{p.product_name}</h3>
                 <p class="precio">$ {parsePrice(p.price)}</p>
                 <div class="botones">
-                  <button>Ver</button>
+                  <button onClick={() => navigate("/detailproduct")}>
+                    Ver
+                  </button>
                 </div>
               </div>
             );
