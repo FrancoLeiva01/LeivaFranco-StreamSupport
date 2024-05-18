@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useStore } from "../cart.store";
 
 const ContainerCart = styled.section`
   section .container-cart {
@@ -186,21 +187,27 @@ const ResumenCart = styled.div`
 `;
 
 const Cart = () => {
+  const productFromCart = useStore((state) => state.productsCart);
   const [productCart, setProductCart] = useState([]);
-  async function initialData() {
-    await fetch("http://localhost:3000/products/4")
-      .then((res) => res.json())
-      .then((res) => setProductCart(res.data))
-      .catch((res) => console.log(res));
-  }
-  useEffect(() => {
-    initialData();
-  }, []);
-  console.log(productCart);
+  // async function initialData() {
+  //   await fetch("http://localhost:3000/products/4")
+  //     .then((res) => res.json())
+  //     .then((res) => setProductCart(res.data))
+  //     .catch((res) => console.log(res));
+  // }
+  // useEffect(() => {
+  //   initialData();
+  // }, []);
+
+  // useEffect(() => {
+  //   setProductCart()
+  // }, )
+
+  console.log(productFromCart);
   return (
     <ContainerCart>
       <section>
-        <div className="container-cart">
+        {/* <div className="container-cart">
           <div className="tarjeta-cart">
             <div className="detalles-product">
               <img src={productCart.image} alt="" />
@@ -229,7 +236,14 @@ const Cart = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+        {productFromCart.length > 0 ? (
+          productFromCart.map((product) => {
+            return <div key={product.product_id}>{product.product_name}</div>;
+          })
+        ) : (
+          <p>Carrito Vacio</p>
+        )}
       </section>
       <ResumenCart>
         <div className="container-cart2">

@@ -109,15 +109,15 @@ function Navbar() {
   }
   return (
     <NavContainer>
-      <div class="head">
-        <div class="logo">
+      <div className="head">
+        <div className="logo">
           <a onClick={() => navigate("/home")}>Stream Support</a>
         </div>
 
-        <nav class="navbar">
-          <div class="barra-nav">
+        <nav className="navbar">
+          <div className="barra-nav">
             <input
-              class="barra"
+              className="barra"
               type="search"
               id="site-search"
               name="buscador"

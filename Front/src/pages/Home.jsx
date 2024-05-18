@@ -182,14 +182,14 @@ const Home = () => {
   return (
     <TarjetasContainer>
       <div className="products-backgound">
-        <h2 class="productos">
+        <h2 className="productos">
           Productos:
-          <a class="ver-todo" href="#">
+          <a className="ver-todo" href="#">
             Ver todo
           </a>
         </h2>
       </div>
-      <div class="caja-filtro">
+      <div className="caja-filtro">
         <h3>
           Filtrar Por Categorias:{" "}
           <select name="categorias" id="category">
@@ -208,12 +208,14 @@ const Home = () => {
         {product.length ? (
           product.map((p) => {
             return (
-              <div class="tarjeta box-1" key={p.product_name}>
-                <img class="img" src={p.image} alt="Perfil 1" />
+              <div className="tarjeta box-1" key={p.product_name}>
+                <img className="img" src={p.image} alt="Perfil 1" />
                 <h3>{p.product_name}</h3>
-                <p class="precio">$ {parsePrice(p.price)}</p>
-                <div class="botones">
-                  <button onClick={() => navigate("/detailproduct")}>
+                <p className="precio">$ {parsePrice(p.price)}</p>
+                <div className="botones">
+                  <button
+                    onClick={() => navigate(`/detailproduct/${p.product_id}`)}
+                  >
                     Ver
                   </button>
                 </div>

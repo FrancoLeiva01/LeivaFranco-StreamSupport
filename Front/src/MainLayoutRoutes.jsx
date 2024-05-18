@@ -14,7 +14,7 @@ const MainLayoutRoutes = () => {
       <Header />
       <Routes>
         <Route path="/home" element={<Home />} />
-        <Route path="/detailproduct" element={<DetailProduct />} />
+        <Route path="/detailproduct/:id" element={<DetailProduct />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
       <Footer />

@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useStore } from "../cart.store";
+import { useParams } from "react-router-dom";
+import parsePrice from "../functions/parsePrice";
 
 const DetailContainer = styled.div`
   * {
@@ -281,44 +284,60 @@ const DetailContainer = styled.div`
 `;
 
 const DetailProduct = () => {
+  const { id } = useParams();
+  const setProductToCart = useStore((state) => state.setProductToCart);
+  console.log(id);
+  const [productDetail, setProductDetail] = useState([]);
+  async function initialData(id) {
+    await fetch(`http://localhost:3000/products/${id}`)
+      .then((res) => res.json())
+      .then((res) => setProductDetail(res.data))
+      .catch((res) => console.log(res));
+  }
+  console.log(productDetail);
+  useEffect(() => {
+    initialData(id);
+  }, [id]);
   return (
     <DetailContainer>
-      <section class="seccion-container">
-        <div class="tarjeta-container" />
-        <div class="tarjeta-product">
-          <img
-            class="img"
-            src="https://row.hyperx.com/cdn/shop/products/hyperx_quadcast_s_1_front_1600x.jpg?v=1662435227"
-            alt="Perfil 1"
-          />
-          <div class="detalles-producto">
-            <h3 class="nombre-producto">Micrófono HyperX QuadCast</h3>
-            <div class="precio-metodospago">
-              <span>$224.990</span>
-              <div>
-                <a class="medios-pago" href="#">
-                  Ver los medios de pago
-                </a>
-              </div>
-            </div>
-            <div class="title-details">
-              Lo que tenes que saber del Producto:
+      <section className="seccion-container">
+        <div className="tarjeta-container" />
+        <div className="tarjeta-product">
+          <img className="img" src={productDetail.image} alt="Perfil 1" />
+          <div className="detalles-producto">
+            <h3 className="nombre-producto">{productDetail.product_name}</h3>
+
+            <div className="title-details">
+              {productDetail.product_description}
             </div>
             <div>
               <ul>
-                <li>Dispositivos compatibles: pc.</li>
+                {/* <li>{productDetail.product_name}</li>
                 <li>Cable de 3m.</li>
                 <li>Conector/es de salida:usb.</li>
                 <li>Frecuencia máxima: 20kHz.</li>
                 <li>Frecuencia mínima: 20Hz.</li>
                 <li>Tiene luz LED.</li>
                 <li>Incluye: 1 cables.</li>
-                <li>Alta resolución.</li>
+                <li>Alta resolución.</li> */}
               </ul>
               <br />
-              <div class="caja-botones">
-                <div class="botones">
-                  <button>Añadir al Carrito</button>
+              <div className="precio-metodospago">
+                <span>$ {parsePrice(productDetail.price)}</span>
+                <br />
+                <div>
+                  <a className="medios-pago" href="#">
+                    Ver los medios de pago
+                  </a>
+                </div>
+              </div>
+              <br />
+              <br />
+              <div className="caja-botones">
+                <div className="botones">
+                  <button onClick={() => setProductToCart(productDetail)}>
+                    Añadir al Carrito
+                  </button>
                   <button>Comprar Ahora</button>
                 </div>
               </div>
