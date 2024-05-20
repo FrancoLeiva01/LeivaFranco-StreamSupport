@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useStore } from "../cart.store";
+import { useStore } from "../store/cart.store";
 import { useParams } from "react-router-dom";
 import parsePrice from "../functions/parsePrice";
 
@@ -338,7 +338,6 @@ const DetailProduct = () => {
                   <button onClick={() => setProductToCart(productDetail)}>
                     Añadir al Carrito
                   </button>
-                  <button>Comprar Ahora</button>
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -29,6 +29,7 @@ const RegisterContainer = styled.div`
   body {
     background: url(../img/escritorio.jpg) no-repeat center;
   }
+
   input[type="text"],
   input[type="email"],
   input[type="password"],
@@ -40,7 +41,8 @@ const RegisterContainer = styled.div`
     border-radius: 5px;
   }
 
-  button {
+  button,
+  .submit-button {
     background-color: #0056b3;
     border: none;
     padding: 10px 20px;
@@ -84,10 +86,49 @@ const RegisterContainer = styled.div`
     font-size: 70px;
     font-weight: 600;
   }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Add gap between form elements */
+  }
 `;
 
 const Register = () => {
   const navigate = useNavigate();
+  const [newUser, setNewUser] = useState({
+    user: "",
+    password: "",
+    email: "",
+  });
+
+  const onChangeNewUser = (event) => {
+    setNewUser({
+      ...newUser,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleRegister = (event) => {
+    event.preventDefault();
+    console.log("newUser", newUser);
+    fetch("http://localhost:3000/usuarios/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <RegisterContainer>
       <div className="container-login">
@@ -95,12 +136,35 @@ const Register = () => {
           <h2>Stream Support</h2>
         </div>
         <div className="tarjeta-login">
-          <h3 className="titulo-login">Registrate</h3>
-          <input type="text" placeholder="Usuario" />
-          <input type="email" placeholder="E-mail" />
-          <input type="password" placeholder="Contraseña" />
-          <input type="password" placeholder="Confirmar Contraseña" />
-          <button onClick={() => navigate("/home")}>Registrarme</button>
+          <form onSubmit={handleRegister}>
+            <h3 className="titulo-login">Registrate</h3>
+            <input
+              required
+              type="text"
+              name="user"
+              placeholder="Usuario"
+              onChange={onChangeNewUser}
+            />
+            <input
+              required
+              type="email"
+              name="email"
+              placeholder="E-mail"
+              onChange={onChangeNewUser}
+            />
+            <input
+              required
+              type="password"
+              name="password"
+              placeholder="Contraseña"
+              onChange={onChangeNewUser}
+            />
+            <input
+              className="submit-button"
+              type="submit"
+              value="Registrarme"
+            />
+          </form>
           <a className="terminos" href="#">
             Terminos y Condiciones
           </a>

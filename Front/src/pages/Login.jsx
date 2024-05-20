@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -44,7 +44,8 @@ const LoginContainer = styled.div`
     border-radius: 5px;
   }
 
-  button {
+  button,
+  .submit-button {
     background-color: #0056b3;
     border: none;
     padding: 10px 20px;
@@ -90,9 +91,51 @@ const LoginContainer = styled.div`
     font-size: 70px;
     font-weight: 600;
   }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Add gap between form elements */
+  }
 `;
 
 const Login = () => {
+  const [password, setPassword] = useState();
+  const [user, setUser] = useState();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const data = {
+      username: user,
+      password: password,
+    };
+    console.log(data);
+    fetch("http://localhost:3000/usuarios/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          // Si la respuesta no es OK (por ejemplo, 4xx o 5xx), lanza un error
+          return response.json().then((err) => {
+            throw new Error(err.message || "Error en el inicio de sesión");
+          });
+        }
+        return response.json();
+      })
+      .then((result) => {
+        console.log(result);
+        navigate("/home");
+      })
+      .catch((error) => {
+        // Manejar el error aquí y mostrar un mensaje de error
+        console.error("Error en el inicio de sesión:", error);
+        alert(error.message); // Muestra un mensaje de error al usuario
+      });
+  };
   const navigate = useNavigate();
   return (
     <LoginContainer>
@@ -102,13 +145,31 @@ const Login = () => {
         </div>
         <div className="tarjeta-login">
           <h3 className="titulo-login">Iniciar Sesion</h3>
-          <input
-            className="inputs"
-            type="email"
-            placeholder="Usuario o E-mail"
-          />
-          <input className="inputs" type="password" placeholder="Contraseña" />
-          <button onClick={() => navigate("/home")}>Iniciar Sesion</button>
+          <form onSubmit={handleLogin}>
+            <input
+              required
+              onChange={() => {
+                setUser(event.target.value);
+              }}
+              className="inputs"
+              type="text"
+              placeholder="Usuario"
+            />
+            <input
+              required
+              onChange={() => {
+                setPassword(event.target.value);
+              }}
+              className="inputs"
+              type="password"
+              placeholder="Contraseña"
+            />
+            <input
+              className="submit-button"
+              type="submit"
+              value="Iniciar Sesion"
+            />
+          </form>
           <a className="olvidaste">¿Olvidaste Tu Contraseña?</a>
 
           <div className="crear-cuenta">

@@ -6,6 +6,7 @@ import Footer from "./components/footer";
 import Home from "./pages/Home";
 import DetailProduct from "./pages/DetailProduct";
 import Cart from "./pages/Cart";
+import ConfirmBuy from "./pages/ConfirmBuy";
 
 const MainLayoutRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const MainLayoutRoutes = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/detailproduct/:id" element={<DetailProduct />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/confirm" element={<ConfirmBuy />} />
       </Routes>
       <Footer />
     </>

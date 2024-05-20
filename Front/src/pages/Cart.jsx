@@ -1,8 +1,24 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useStore } from "../cart.store";
+import { useStore } from "../store/cart.store";
+import parsePrice from "../functions/parsePrice";
+import { useNavigate } from "react-router-dom";
 
 const ContainerCart = styled.section`
+  .carritoVacio {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-content: stretch;
+    justify-content: space-around;
+    font-family: "Roboto";
+    color: cornflowerblue;
+    font-weight: 900;
+    font-size: -webkit-xxx-large;
+    background-color: #292728;
+  }
+
   section .container-cart {
     background-color: #292728;
     min-width: 750px;
@@ -24,7 +40,7 @@ const ContainerCart = styled.section`
   }
 
   .tarjeta-cart {
-    max-width: 100rem;
+    max-width: 1200px;
     width: 90%;
     height: 350px;
     background-color: #3d3b3c;
@@ -78,7 +94,7 @@ const ContainerCart = styled.section`
     margin-bottom: 20px;
     margin-top: 30px;
   }
-  .tarjeta-login {
+  .tarjeta-cart {
     display: flex;
     flex-direction: column;
     max-width: 800px;
@@ -103,7 +119,7 @@ const ContainerCart = styled.section`
     font-size: 20px;
   }
 
-  .titulo-login {
+  .titulo-cart {
     color: #0056b3;
   }
 
@@ -187,6 +203,11 @@ const ResumenCart = styled.div`
 `;
 
 const Cart = () => {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate("/confirm");
+  }
   const productFromCart = useStore((state) => state.productsCart);
   const [productCart, setProductCart] = useState([]);
   // async function initialData() {
@@ -210,9 +231,9 @@ const Cart = () => {
         {/* <div className="container-cart">
           <div className="tarjeta-cart">
             <div className="detalles-product">
-              <img src={productCart.image} alt="" />
+              <img src={product.image} alt="" />
               <div className="detalles-cart">
-                <h3>{productCart.product_name}</h3>
+                <h3>{product.product_name}</h3>
                 <ul>
                   <li>
                     <a href="#">Eliminar</a>
@@ -225,7 +246,7 @@ const Cart = () => {
                   </li>
                 </ul>
                 <div className="precio">
-                  <p>{productCart.price}</p>
+                  <p>{product.price}</p>
                 </div>
                 <div className="count-price">
                   <form action="product-count">
@@ -239,16 +260,49 @@ const Cart = () => {
         </div> */}
         {productFromCart.length > 0 ? (
           productFromCart.map((product) => {
-            return <div key={product.product_id}>{product.product_name}</div>;
+            return (
+              <div className="container-cart">
+                <div className="tarjeta-cart">
+                  <div className="detalles-product" key={product.product_id}>
+                    <img src={product.image} alt="" />
+                    <div className="detalles-cart">
+                      <h3>{product.product_name}</h3>
+                      <ul>
+                        <li>
+                          <a href="#">Eliminar</a>
+                        </li>
+                        <li>
+                          <a href="#">Comprar</a>
+                        </li>
+                        <li>
+                          <a href="#">Modificar</a>
+                        </li>
+                      </ul>
+                      <div className="precio">
+                        <p>$ {parsePrice(product.price)}</p>
+                      </div>
+                      <div className="count-price">
+                        <form action="product-count">
+                          <label for="count">Cantidad: </label>
+                          <input type="number" name="count" min="1" max="10" />
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
           })
         ) : (
-          <p>Carrito Vacio</p>
+          <div className="carritoVacio">
+            <p>Carrito Vacio</p>
+          </div>
         )}
       </section>
       <ResumenCart>
         <div className="container-cart2">
-          <div className="tarjeta-login">
-            <h3 className="titulo-login">Resumen de Compra</h3>
+          <div className="tarjeta-cart">
+            <h3 className="titulo-cart">Resumen de Compra</h3>
             <div className="resumen-cart">
               <p>Productos (1)</p>
               <p>{productCart.price}</p>
@@ -256,7 +310,12 @@ const Cart = () => {
             <div className="resumen-cart2">
               <p>Envio Gratis</p>
             </div>
-            <button className="button-cart">Comprar</button>
+            <button
+              className="button-cart"
+              onClick={() => navigate("/confirm")}
+            >
+              Comprar
+            </button>
           </div>
         </div>
       </ResumenCart>

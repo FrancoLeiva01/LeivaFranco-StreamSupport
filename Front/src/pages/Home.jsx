@@ -164,10 +164,10 @@ const TarjetasContainer = styled.div`
 
 const Home = () => {
   const navigate = useNavigate();
-
   function handleClick() {
     navigate("/detailproduct");
   }
+
   const [product, setProduct] = useState([]);
   async function initialData() {
     await fetch("http://localhost:3000/products/")
