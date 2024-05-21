@@ -2,6 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 const HeaderContainer = styled.header`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 20px;
+    font-family: "Roboto", "Times New Roman", serif;
+  }
   header {
     display: flex;
     justify-content: center;

@@ -62,6 +62,7 @@ const TarjetasContainer = styled.div`
   }
 
   .productos-container {
+    color: white;
     background-color: #292728;
     display: flex;
     max-width: 600px;
@@ -95,7 +96,6 @@ const TarjetasContainer = styled.div`
   .tarjeta1 {
     background-color: #3d3b3c;
     width: 350px;
-    box-shadow: 3px 3px 10px;
     padding: 1rem;
   }
 
@@ -124,15 +124,16 @@ const TarjetasContainer = styled.div`
   p {
     margin-bottom: 40px;
     font-size: 18px;
-    color: black;
+    color: white;
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
       sans-serif;
     font-weight: 1000;
   }
   .tarjeta,
   .tarjeta1 {
+    font-family: "Roboto", "Times New Roman", serif;
     width: 350px;
-    box-shadow: 3px 3px 10px;
+    box-shadow: 3px 3px 10px black;
     padding: 1rem;
     & h3 {
       font-weight: 900;

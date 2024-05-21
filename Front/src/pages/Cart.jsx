@@ -210,54 +210,11 @@ const Cart = () => {
   }
   const productFromCart = useStore((state) => state.productsCart);
   const [productCart, setProductCart] = useState([]);
-  // async function initialData() {
-  //   await fetch("http://localhost:3000/products/4")
-  //     .then((res) => res.json())
-  //     .then((res) => setProductCart(res.data))
-  //     .catch((res) => console.log(res));
-  // }
-  // useEffect(() => {
-  //   initialData();
-  // }, []);
-
-  // useEffect(() => {
-  //   setProductCart()
-  // }, )
 
   console.log(productFromCart);
   return (
     <ContainerCart>
       <section>
-        {/* <div className="container-cart">
-          <div className="tarjeta-cart">
-            <div className="detalles-product">
-              <img src={product.image} alt="" />
-              <div className="detalles-cart">
-                <h3>{product.product_name}</h3>
-                <ul>
-                  <li>
-                    <a href="#">Eliminar</a>
-                  </li>
-                  <li>
-                    <a href="#">Comprar</a>
-                  </li>
-                  <li>
-                    <a href="#">Modificar</a>
-                  </li>
-                </ul>
-                <div className="precio">
-                  <p>{product.price}</p>
-                </div>
-                <div className="count-price">
-                  <form action="product-count">
-                    <label for="count">Cantidad: </label>
-                    <input type="number" name="count" min="1" max="10" />
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
         {productFromCart.length > 0 ? (
           productFromCart.map((product) => {
             return (
@@ -299,26 +256,28 @@ const Cart = () => {
           </div>
         )}
       </section>
-      <ResumenCart>
-        <div className="container-cart2">
-          <div className="tarjeta-cart">
-            <h3 className="titulo-cart">Resumen de Compra</h3>
-            <div className="resumen-cart">
-              <p>Productos (1)</p>
-              <p>{productCart.price}</p>
+      {productFromCart.length > 0 && (
+        <ResumenCart>
+          <div className="container-cart2">
+            <div className="tarjeta-cart">
+              <h3 className="titulo-cart">Resumen de Compra</h3>
+              <div className="resumen-cart">
+                <p>Productos (1)</p>
+                <p>{productCart.price}</p>
+              </div>
+              <div className="resumen-cart2">
+                <p>Envio Gratis</p>
+              </div>
+              <button
+                className="button-cart"
+                onClick={() => navigate("/confirm")}
+              >
+                Comprar
+              </button>
             </div>
-            <div className="resumen-cart2">
-              <p>Envio Gratis</p>
-            </div>
-            <button
-              className="button-cart"
-              onClick={() => navigate("/confirm")}
-            >
-              Comprar
-            </button>
           </div>
-        </div>
-      </ResumenCart>
+        </ResumenCart>
+      )}
     </ContainerCart>
   );
 };

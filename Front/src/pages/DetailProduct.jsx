@@ -91,6 +91,8 @@ const DetailContainer = styled.div`
   }
 
   .tarjeta-product {
+    font-family: "Roboto", "Times New Roman", serif;
+    color: white;
     margin-bottom: 50px;
     margin-top: 50px;
     background-color: #3d3b3c;

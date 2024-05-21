@@ -119,7 +119,6 @@ const Login = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          // Si la respuesta no es OK (por ejemplo, 4xx o 5xx), lanza un error
           return response.json().then((err) => {
             throw new Error(err.message || "Error en el inicio de sesión");
           });
@@ -131,9 +130,8 @@ const Login = () => {
         navigate("/home");
       })
       .catch((error) => {
-        // Manejar el error aquí y mostrar un mensaje de error
         console.error("Error en el inicio de sesión:", error);
-        alert(error.message); // Muestra un mensaje de error al usuario
+        alert(error.message);
       });
   };
   const navigate = useNavigate();
