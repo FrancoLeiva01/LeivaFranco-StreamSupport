@@ -58,6 +58,7 @@ const ContainerCart = styled.section`
     width: 300px;
     height: 250px;
   }
+
   .detalles-product {
     display: flex;
     font-size: 27px;
@@ -69,6 +70,7 @@ const ContainerCart = styled.section`
     align-items: center;
     margin-left: 20px;
   }
+
   .detalles-cart ul {
     display: flex;
     list-style: none;
@@ -94,6 +96,7 @@ const ContainerCart = styled.section`
     margin-bottom: 20px;
     margin-top: 30px;
   }
+
   .tarjeta-cart {
     display: flex;
     flex-direction: column;
@@ -142,6 +145,7 @@ const ContainerCart = styled.section`
     flex-direction: row;
     gap: 10rem;
   }
+
   form input {
     width: 60px;
     height: 30px;
@@ -150,6 +154,7 @@ const ContainerCart = styled.section`
     font-size: 1rem;
     text-align: center;
   }
+
   .count-price h4 {
     font-size: 1.4rem;
   }
@@ -189,6 +194,7 @@ const ResumenCart = styled.div`
     flex-direction: row;
     gap: 10rem;
   }
+
   form input {
     width: 60px;
     height: 30px;
@@ -197,6 +203,7 @@ const ResumenCart = styled.div`
     font-size: 1rem;
     text-align: center;
   }
+
   .count-price h4 {
     font-size: 1.4rem;
   }
@@ -204,52 +211,97 @@ const ResumenCart = styled.div`
 
 const Cart = () => {
   const navigate = useNavigate();
-
-  function handleClick() {
-    navigate("/confirm");
-  }
   const productFromCart = useStore((state) => state.productsCart);
-  const [productCart, setProductCart] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  console.log(productFromCart);
+  useEffect(() => {
+    const count = productFromCart.reduce(
+      (acc, product) => acc + product.quantity,
+      0
+    );
+    const price = productFromCart.reduce(
+      (acc, product) => acc + product.price * product.quantity,
+      0
+    );
+    setTotalCount(count);
+    setTotalPrice(price);
+  }, [productFromCart]);
+
+  const handleClick = () => {
+    navigate("/confirm");
+  };
+
+  const handleRemoveProduct = (productId) => {
+    useStore.setState((state) => ({
+      productsCart: state.productsCart.filter(
+        (product) => product.product_id !== productId
+      ),
+    }));
+  };
+
   return (
     <ContainerCart>
       <section>
         {productFromCart.length > 0 ? (
-          productFromCart.map((product) => {
-            return (
-              <div className="container-cart">
-                <div className="tarjeta-cart">
-                  <div className="detalles-product" key={product.product_id}>
-                    <img src={product.image} alt="" />
-                    <div className="detalles-cart">
-                      <h3>{product.product_name}</h3>
-                      <ul>
-                        <li>
-                          <a href="#">Eliminar</a>
-                        </li>
-                        <li>
-                          <a href="#">Comprar</a>
-                        </li>
-                        <li>
-                          <a href="#">Modificar</a>
-                        </li>
-                      </ul>
-                      <div className="precio">
-                        <p>$ {parsePrice(product.price)}</p>
-                      </div>
-                      <div className="count-price">
-                        <form action="product-count">
-                          <label for="count">Cantidad: </label>
-                          <input type="number" name="count" min="1" max="10" />
-                        </form>
-                      </div>
+          productFromCart.map((product) => (
+            <div className="container-cart" key={product.product_id}>
+              <div className="tarjeta-cart">
+                <div className="detalles-product">
+                  <img src={product.image} alt={product.product_name} />
+                  <div className="detalles-cart">
+                    <h3>{product.product_name}</h3>
+                    <ul>
+                      <li>
+                        <a
+                          href="#"
+                          onClick={() =>
+                            handleRemoveProduct(product.product_id)
+                          }
+                        >
+                          Eliminar Todo
+                        </a>
+                      </li>
+                    </ul>
+                    <div className="precio">
+                      <p>$ {parsePrice(product.price)}</p>
+                    </div>
+                    <div className="count-price">
+                      <form action="product-count">
+                        <label htmlFor="count">Cantidad: </label>
+                        <input
+                          type="number"
+                          name="count"
+                          min="1"
+                          max="10"
+                          value={product.quantity}
+                          onChange={(e) => {
+                            const newQuantity = parseInt(e.target.value);
+                            if (!isNaN(newQuantity)) {
+                              useStore.setState((state) => {
+                                const updatedProducts = state.productsCart.map(
+                                  (prod) => {
+                                    if (
+                                      prod.product_id === product.product_id
+                                    ) {
+                                      return { ...prod, quantity: newQuantity };
+                                    } else {
+                                      return prod;
+                                    }
+                                  }
+                                );
+                                return { productsCart: updatedProducts };
+                              });
+                            }
+                          }}
+                        />
+                      </form>
                     </div>
                   </div>
                 </div>
               </div>
-            );
-          })
+            </div>
+          ))
         ) : (
           <div className="carritoVacio">
             <p>Carrito Vacio</p>
@@ -262,16 +314,13 @@ const Cart = () => {
             <div className="tarjeta-cart">
               <h3 className="titulo-cart">Resumen de Compra</h3>
               <div className="resumen-cart">
-                <p>Productos (1)</p>
-                <p>{productCart.price}</p>
+                <p>Productos ({totalCount})</p>
+                <p>$ {parsePrice(totalPrice)}</p>
               </div>
               <div className="resumen-cart2">
                 <p>Envio Gratis</p>
               </div>
-              <button
-                className="button-cart"
-                onClick={() => navigate("/confirm")}
-              >
+              <button className="button-cart" onClick={handleClick}>
                 Comprar
               </button>
             </div>

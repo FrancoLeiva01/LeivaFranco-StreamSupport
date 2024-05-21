@@ -5,9 +5,23 @@ const useStore = create((set) => ({
   productsCart: [],
   setProduct: (state) => set({ product: state }),
   setProductToCart: (productToCart) => {
-    set((state) => ({
-      productsCart: [...state.productsCart, productToCart],
-    }));
+    set((state) => {
+      const existingProductIndex = state.productsCart.findIndex(
+        (product) => product.product_id === productToCart.product_id
+      );
+      if (existingProductIndex !== -1) {
+        const updatedProducts = [...state.productsCart];
+        updatedProducts[existingProductIndex].quantity += 1;
+        return { productsCart: updatedProducts };
+      } else {
+        return {
+          productsCart: [
+            ...state.productsCart,
+            { ...productToCart, quantity: 1 },
+          ],
+        };
+      }
+    });
   },
 }));
 

@@ -87,3 +87,45 @@ const ConfirmBuy = () => {
 };
 
 export default ConfirmBuy;
+
+// import React from "react";
+// import styled from "styled-components";
+
+// const ConfirmContainer = styled.div`
+//   // Estilos
+// `;
+
+// const ConfirmBuy = ({ products }) => {
+//   // Calcula el precio total
+//   const totalPrice = products
+//     ? products.reduce((acc, product) => {
+//         return acc + product.price * product.quantity;
+//       }, 0)
+//     : 0;
+//   return (
+//     <ConfirmContainer>
+//       <div className="container-confirm">
+//         <div>
+//           <h2>Stream Support</h2>
+//         </div>
+//         <div className="tarjeta-confirm">
+//           <h3 className="titulo-confirm">Confirmación de Compra</h3>
+//           <div>
+//             {products.map((product) => (
+//               <div key={product.product_id}>
+//                 <p>{product.product_name}</p>
+//                 <p>Precio: ${product.price}</p>
+//                 <p>Cantidad: {product.quantity}</p>
+//               </div>
+//             ))}
+//           </div>
+//           <p>Precio total: ${totalPrice}</p>
+//           <p>Envío: Gratis</p>
+//           <p>Datos de Envío al Usuario: Pendiente</p>
+//           <button>Confirmar Compra</button>
+//         </div>
+//       </div>
+//     </ConfirmContainer>
+//   );
+// };
+// export default ConfirmBuy;

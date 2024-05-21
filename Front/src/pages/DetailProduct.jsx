@@ -313,16 +313,6 @@ const DetailProduct = () => {
               {productDetail.product_description}
             </div>
             <div>
-              <ul>
-                {/* <li>{productDetail.product_name}</li>
-                <li>Cable de 3m.</li>
-                <li>Conector/es de salida:usb.</li>
-                <li>Frecuencia máxima: 20kHz.</li>
-                <li>Frecuencia mínima: 20Hz.</li>
-                <li>Tiene luz LED.</li>
-                <li>Incluye: 1 cables.</li>
-                <li>Alta resolución.</li> */}
-              </ul>
               <br />
               <div className="precio-metodospago">
                 <span>$ {parsePrice(productDetail.price)}</span>
