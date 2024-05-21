@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { useStore } from "../store/cart.store";
+import parsePrice from "../functions/parsePrice";
 
 const ConfirmContainer = styled.div`
   * {
@@ -47,7 +49,7 @@ const ConfirmContainer = styled.div`
   .tarjeta-confirm {
     max-width: 600px;
     width: 90%;
-    height: 540px;
+    height: 740px;
     background-color: rgb(255, 255, 255);
     padding: 20px;
     margin-bottom: 20px;
@@ -64,21 +66,74 @@ const ConfirmContainer = styled.div`
     font-size: 70px;
     font-weight: 100px;
   }
+
+  h3 {
+    color: #4485ca;
+    text-align: center;
+  }
+
+  .envio {
+    color: rgb(67, 184, 67);
+    font-size: 20px;
+  }
+  .separator {
+    background: rgba(0, 0, 0, 0.1);
+    height: 1px;
+    margin: 0;
+    width: 100%;
+  }
 `;
 
 const ConfirmBuy = () => {
+  const productsCart = useStore((state) => state.productsCart);
+
+  if (productsCart.length === 0) {
+    return (
+      <ConfirmContainer>
+        <div className="container-confirm">
+          <div className="tarjeta-confirm">
+            <h3 className="titulo-confirm">Tu Carrito esta Vacío</h3>
+            <p>No tienes compras por realizar</p>
+          </div>
+        </div>
+      </ConfirmContainer>
+    );
+  }
+
+  const totalPrice = productsCart.reduce(
+    (acc, product) => acc + product.price * product.quantity,
+    0
+  );
+
   return (
     <ConfirmContainer>
-      <div class="container-confirm">
+      <div className="container-confirm">
         <div>
           <h2>Stream Support</h2>
         </div>
-        <div class="tarjeta-confirm">
-          <h3 class="titulo-confirm">Confirmacion de Compra</h3>
-          <div>Detalles del producto</div>
-          <p>Precio total</p>
-          <p>Envio</p>
-          <p>Datos de Envio al Usuario</p>
+        <div className="tarjeta-confirm">
+          <h3 className="titulo-confirm">Confirmacion de Compra</h3>
+          <div>
+            {productsCart.map((product) => (
+              <div key={product.product_id}>
+                <h3>Detalles del Producto:</h3>
+                <h4>{product.product_name}</h4>
+                <p>Cantidad: {product.quantity}</p>
+                <p>Precio: $ {parsePrice(product.price * product.quantity)}</p>
+              </div>
+            ))}
+          </div>
+          <div className="separator"></div>
+          <div className="envio">
+            <p>Envio Gratis</p>
+          </div>
+          <div className="separator"></div>
+          <p>Precio Total: $ {parsePrice(totalPrice)}</p>
+          <div>
+            <p>
+              Direccion de entrega: Calle Evergreen Terrace 742 en Springfield
+            </p>
+          </div>
           <button>Confirmar Compra</button>
         </div>
       </div>
@@ -87,45 +142,3 @@ const ConfirmBuy = () => {
 };
 
 export default ConfirmBuy;
-
-// import React from "react";
-// import styled from "styled-components";
-
-// const ConfirmContainer = styled.div`
-//   // Estilos
-// `;
-
-// const ConfirmBuy = ({ products }) => {
-//   // Calcula el precio total
-//   const totalPrice = products
-//     ? products.reduce((acc, product) => {
-//         return acc + product.price * product.quantity;
-//       }, 0)
-//     : 0;
-//   return (
-//     <ConfirmContainer>
-//       <div className="container-confirm">
-//         <div>
-//           <h2>Stream Support</h2>
-//         </div>
-//         <div className="tarjeta-confirm">
-//           <h3 className="titulo-confirm">Confirmación de Compra</h3>
-//           <div>
-//             {products.map((product) => (
-//               <div key={product.product_id}>
-//                 <p>{product.product_name}</p>
-//                 <p>Precio: ${product.price}</p>
-//                 <p>Cantidad: {product.quantity}</p>
-//               </div>
-//             ))}
-//           </div>
-//           <p>Precio total: ${totalPrice}</p>
-//           <p>Envío: Gratis</p>
-//           <p>Datos de Envío al Usuario: Pendiente</p>
-//           <button>Confirmar Compra</button>
-//         </div>
-//       </div>
-//     </ConfirmContainer>
-//   );
-// };
-// export default ConfirmBuy;

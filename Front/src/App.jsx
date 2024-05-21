@@ -14,15 +14,15 @@ function App() {
   const isAuth = useAuthStore((state) => state.isAuth);
   const location = useLocation();
 
-  // Verifica si la ruta actual es /login o /register
   const isLoginOrRegister =
     location.pathname === "/login" || location.pathname === "/register";
+
+  const isHome = location.pathname === "/";
 
   return (
     <>
       <Navbar />
-      {!isLoginOrRegister && isAuth && <Header />}
-      {/* Renderiza Header solo si no es /login o /register y el usuario está autenticado */}
+      {!isLoginOrRegister && (isAuth || isHome) && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -30,7 +30,7 @@ function App() {
         <Route path="/detailproduct/:id" element={<DetailProduct />} />
         <Route path="*" element={<MainLayoutRoutes isAllowed={isAuth} />} />
       </Routes>
-      {!isLoginOrRegister && isAuth && <Footer />}
+      {!isLoginOrRegister && (isAuth || isHome) && <Footer />}
     </>
   );
 }

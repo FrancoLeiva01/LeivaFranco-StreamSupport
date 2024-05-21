@@ -15,6 +15,9 @@ const TarjetasContainer = styled.div`
   }
 
   .caja-filtro {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     background-color: #292728;
     & h3 {
       font-family: "Roboto", "Times New Roman", serif;
@@ -43,6 +46,7 @@ const TarjetasContainer = styled.div`
   }
 
   .productos {
+    padding-top: 10px;
     padding-left: 10px;
     font-family: "Roboto", "Times New Roman", serif;
     font-size: 50px;
@@ -161,6 +165,10 @@ const TarjetasContainer = styled.div`
     display: flex;
     justify-content: space-around;
   }
+
+  h3 {
+    padding-left: 10px;
+  }
 `;
 
 const Home = () => {
@@ -173,48 +181,60 @@ const Home = () => {
   const [productosFiltrados, setProductosFiltrados] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [categoriaSeleccionada, setCategoriaseleccionada] = useState("0");
+  const [precioSeleccionado, setPrecioSeleccionado] = useState("0");
+
   async function initialProducts() {
     await fetch("http://localhost:3000/products/")
       .then((res) => res.json())
       .then((res) => setProducts(res.data))
       .catch((res) => console.log(res));
   }
+
   async function initialCategorias() {
     await fetch("http://localhost:3000/categorias/")
       .then((res) => res.json())
       .then((res) => setCategorias(res.data))
       .catch((res) => console.log(res));
   }
+
   useEffect(() => {
     initialProducts();
     initialCategorias();
   }, []);
 
   useEffect(() => {
-    const productosFiltradosPorCategoria = products.filter(
-      (product) =>
-        product.id_category.toString() === categoriaSeleccionada.toString()
-    );
-    if (categoriaSeleccionada === "0") {
-      setProductosFiltrados(products);
-    } else {
-      setProductosFiltrados(productosFiltradosPorCategoria);
+    let productosFiltradosPorCategoria = products;
+    if (categoriaSeleccionada !== "0") {
+      productosFiltradosPorCategoria = products.filter(
+        (product) =>
+          product.id_category.toString() === categoriaSeleccionada.toString()
+      );
     }
-  }, [categoriaSeleccionada, products]);
+
+    let productosFiltradosPorPrecio = productosFiltradosPorCategoria;
+    if (precioSeleccionado !== "0") {
+      const [min, max] = precioSeleccionado.split("-");
+      productosFiltradosPorPrecio = productosFiltradosPorCategoria.filter(
+        (product) =>
+          product.price >= parseFloat(min) && product.price <= parseFloat(max)
+      );
+    }
+
+    setProductosFiltrados(productosFiltradosPorPrecio);
+  }, [categoriaSeleccionada, precioSeleccionado, products]);
 
   const handleChangeCategoria = (event) => {
     setCategoriaseleccionada(event.target.value);
   };
 
+  const handleChangePrecio = (event) => {
+    setPrecioSeleccionado(event.target.value);
+  };
+
   return (
     <TarjetasContainer>
       <div className="products-backgound">
-        <h2 className="productos">
-          Productos
-          {/* <a className="ver-todo" href="#">
-            Ver todo
-          </a> */}
-        </h2>
+        <h2 className="productos">Productos:</h2>
       </div>
       <div className="caja-filtro">
         <h3>
@@ -230,6 +250,15 @@ const Home = () => {
                 {categoria.name}
               </option>
             ))}
+          </select>
+        </h3>
+        <h3>
+          Filtrar Por Precio:{" "}
+          <select name="precios" id="price" onChange={handleChangePrecio}>
+            <option value="0">Ver Todos</option>
+            <option value="0-50">0 - 50</option>
+            <option value="5-900">50 - 900</option>
+            <option value="200000-400000">200000 - 400000</option>
           </select>
         </h3>
       </div>
