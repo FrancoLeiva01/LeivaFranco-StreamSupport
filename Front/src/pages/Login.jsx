@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useAuthStore } from "../store/auth.store";
 
 const LoginContainer = styled.div`
   * {
@@ -102,6 +103,10 @@ const LoginContainer = styled.div`
 const Login = () => {
   const [password, setPassword] = useState();
   const [user, setUser] = useState();
+  const setUsername = useAuthStore((state) => state.setUsername);
+  const setToken = useAuthStore((state) => state.setToken);
+  const isAuth = useAuthStore((state) => state.isAuth);
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -127,14 +132,21 @@ const Login = () => {
       })
       .then((result) => {
         console.log(result);
-        navigate("/home");
+        setToken(result.token);
+        setUsername(user);
+        navigate("/");
       })
       .catch((error) => {
         console.error("Error en el inicio de sesión:", error);
         alert(error.message);
       });
   };
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/");
+    }
+  }, [isAuth]);
   return (
     <LoginContainer>
       <div className="container-login">
@@ -168,7 +180,7 @@ const Login = () => {
               value="Iniciar Sesion"
             />
           </form>
-          <a className="olvidaste">¿Olvidaste Tu Contraseña?</a>
+          {/* <a className="olvidaste">¿Olvidaste Tu Contraseña?</a> */}
 
           <div className="crear-cuenta">
             ¿No tienes Cuenta?{" "}

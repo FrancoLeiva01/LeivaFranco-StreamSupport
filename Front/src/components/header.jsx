@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useAuthStore } from "../store/auth.store";
 
 const HeaderContainer = styled.header`
   * {
@@ -74,16 +75,17 @@ const HeaderContainer = styled.header`
 `;
 
 function Header() {
+  const username = useAuthStore((state) => state.username);
   return (
     <HeaderContainer>
       <header className="content header">
-        <h2 className="title">Stream Support</h2>
+        <h3 className="title">Bienvenido {username}!</h3>
 
-        <div className="btn-home">
+        {/* <div className="btn-home">
           <a href="#" className="btn">
             Saber mas
           </a>
-        </div>
+        </div> */}
       </header>
     </HeaderContainer>
   );

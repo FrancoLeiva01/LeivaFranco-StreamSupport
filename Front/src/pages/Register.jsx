@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useAuthStore } from "../store/auth.store";
 
 const RegisterContainer = styled.div`
   * {
@@ -96,6 +97,7 @@ const RegisterContainer = styled.div`
 
 const Register = () => {
   const navigate = useNavigate();
+  const isAuth = useAuthStore((state) => state.isAuth);
   const [newUser, setNewUser] = useState({
     user: "",
     password: "",
@@ -128,6 +130,12 @@ const Register = () => {
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/");
+    }
+  }, [isAuth]);
 
   return (
     <RegisterContainer>

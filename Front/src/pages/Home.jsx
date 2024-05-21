@@ -169,45 +169,73 @@ const Home = () => {
     navigate("/detailproduct");
   }
 
-  const [product, setProduct] = useState([]);
-  async function initialData() {
+  const [products, setProducts] = useState([]);
+  const [productosFiltrados, setProductosFiltrados] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [categoriaSeleccionada, setCategoriaseleccionada] = useState("0");
+  async function initialProducts() {
     await fetch("http://localhost:3000/products/")
       .then((res) => res.json())
-      .then((res) => setProduct(res.data))
+      .then((res) => setProducts(res.data))
+      .catch((res) => console.log(res));
+  }
+  async function initialCategorias() {
+    await fetch("http://localhost:3000/categorias/")
+      .then((res) => res.json())
+      .then((res) => setCategorias(res.data))
       .catch((res) => console.log(res));
   }
   useEffect(() => {
-    initialData();
+    initialProducts();
+    initialCategorias();
   }, []);
-  console.log(product);
+
+  useEffect(() => {
+    const productosFiltradosPorCategoria = products.filter(
+      (product) =>
+        product.id_category.toString() === categoriaSeleccionada.toString()
+    );
+    if (categoriaSeleccionada === "0") {
+      setProductosFiltrados(products);
+    } else {
+      setProductosFiltrados(productosFiltradosPorCategoria);
+    }
+  }, [categoriaSeleccionada, products]);
+
+  const handleChangeCategoria = (event) => {
+    setCategoriaseleccionada(event.target.value);
+  };
+
   return (
     <TarjetasContainer>
       <div className="products-backgound">
         <h2 className="productos">
-          Productos:
-          <a className="ver-todo" href="#">
+          Productos
+          {/* <a className="ver-todo" href="#">
             Ver todo
-          </a>
+          </a> */}
         </h2>
       </div>
       <div className="caja-filtro">
         <h3>
           Filtrar Por Categorias:{" "}
-          <select name="categorias" id="category">
-            <option value="Seleccionar-categoria">
-              Seleccione una categoria
-            </option>
-            <option value="Componentes">Componentes</option>
-            <option value="computadoras">Pc Armadas</option>
-            <option value="notebook">Notebook</option>
-            <option value="accesorios">Accesorios</option>
-            <option value="perifericos">Perifericos</option>
+          <select
+            name="categorias"
+            id="category"
+            onChange={handleChangeCategoria}
+          >
+            <option value="0">Ver Todas</option>
+            {categorias.map((categoria) => (
+              <option key={categoria.id_category} value={categoria.id_category}>
+                {categoria.name}
+              </option>
+            ))}
           </select>
         </h3>
       </div>
       <div className="productos-container">
-        {product.length ? (
-          product.map((p) => {
+        {productosFiltrados.length ? (
+          productosFiltrados.map((p) => {
             return (
               <div className="tarjeta box-1" key={p.product_name}>
                 <img className="img" src={p.image} alt="Perfil 1" />

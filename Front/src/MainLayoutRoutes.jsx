@@ -1,25 +1,18 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/navbar";
-import Header from "./components/header";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Footer from "./components/footer";
-import Home from "./pages/Home";
-import DetailProduct from "./pages/DetailProduct";
 import Cart from "./pages/Cart";
 import ConfirmBuy from "./pages/ConfirmBuy";
 
-const MainLayoutRoutes = () => {
+const MainLayoutRoutes = ({ isAllowed }) => {
+  if (!isAllowed) return <Navigate to="/login" />;
+
   return (
     <>
-      <Navbar />
-      <Header />
       <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/detailproduct/:id" element={<DetailProduct />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/confirm" element={<ConfirmBuy />} />
       </Routes>
-      <Footer />
     </>
   );
 };

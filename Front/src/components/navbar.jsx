@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useAuthStore } from "../store/auth.store";
 
 const NavContainer = styled.nav`
 header {
@@ -36,6 +37,7 @@ header {
     color: white;
     text-transform: uppercase;
     font-size: 20px;
+    cursor: pointer;
   }
   
   .navbar a {
@@ -46,6 +48,7 @@ header {
     text-decoration: none;
     text-transform: uppercase;
     font-size: 20px;
+    cursor: pointer;
   }
   .navbar a:hover {
     background-color: gray;
@@ -98,6 +101,8 @@ header {
 `;
 
 function Navbar() {
+  const isAuth = useAuthStore((state) => state.isAuth);
+  const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
 
   function handleClick() {
@@ -111,24 +116,37 @@ function Navbar() {
     <NavContainer>
       <div className="head">
         <div className="logo">
-          <a onClick={() => navigate("/home")}>Stream Support</a>
+          <a onClick={() => navigate("/")}>Stream Support</a>
         </div>
 
         <nav className="navbar">
-          <div className="barra-nav">
-            <input
-              className="barra"
-              type="search"
-              id="site-search"
-              name="buscador"
-              placeholder="Buscar..."
-            />
+          {isAuth && (
+            <div className="barra-nav">
+              <input
+                className="barra"
+                type="search"
+                id="site-search"
+                name="buscador"
+                placeholder="Buscar..."
+              />
 
-            <button>Buscar</button>
-          </div>
-          <a onClick={handleClick}>Carrito</a>
+              <button>Buscar</button>
+            </div>
+          )}
+          {isAuth && <a onClick={handleClick}>Carrito</a>}
 
-          <a onClick={() => navigate("/login")}>Acceder</a>
+          {!isAuth ? (
+            <a onClick={() => navigate("/login")}>Acceder</a>
+          ) : (
+            <a
+              onClick={() => {
+                logout();
+                navigate("/login");
+              }}
+            >
+              Logout
+            </a>
+          )}
         </nav>
       </div>
     </NavContainer>
