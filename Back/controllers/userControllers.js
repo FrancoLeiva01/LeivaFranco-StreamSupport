@@ -1,5 +1,6 @@
 const User = require("../models").User;
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const { hashSync, genSaltSync, compareSync } = require("bcrypt");
 
 // funciona
@@ -14,7 +15,6 @@ const getUserById = async (req, res) => {
   const user = await User.findByPk(idUsuario);
   res.json({ msg: `Usuario con id ${idUsuario}`, data: user });
 };
-
 
 // funciona
 const createUser = async (req, res) => {
@@ -55,16 +55,57 @@ const deleteUser = async (req, res) => {
   res.json({ msg: "Usuario eliminado correctamente" });
 };
 
-const loginDemo = (req, res) => {
-  const { usuario, password } = req.body;
-  console.log(password);
-  const userBusqueda = findByUserName(usuario);
-  console.log(userBusqueda);
-  const valid = compareSync(password, userBusqueda.password); // true
-  if (valid) {
-    res.send("Logeado exitosamente");
+// const loginDemo = (req, res) => {
+//   const { user, password } = req.body;
+//   console.log(password);
+//   const userBusqueda = findByUserName(user);
+//   console.log(userBusqueda);
+//   const valid = compareSync(password, userBusqueda.password);
+//   if (valid) {
+//     res.send("Logeado exitosamente");
+//   }
+//   res.send("Contraseña incorrecta");
+// };
+
+const registerUser = async (req, res) => {
+  const newUser = req.body;
+  console.log(req.body);
+  try {
+    const hashedPassword = await bcrypt.hash(newUser.password, 10);
+    await User.create({ ...newUser, password: hashedPassword });
+    res.status(201).json({ message: "Usuario creado correctamente" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error inesperado en el servidor" });
   }
-  res.send("Contraseña incorrecta");
+};
+
+const loginUser = async (req, res) => {
+  const { username, password } = req.body;
+  console.log(req.body);
+  try {
+    const user = await User.findOne({ where: { user: username } });
+    if (!user) {
+      return res.status(404).json({ message: "Credenciales invalidas" });
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: "Credenciales invalidas" });
+    }
+    const token = jwt.sign(
+      {
+        test: "test",
+      },
+      "secret",
+      {
+        expiresIn: 60 * 60 * 24,
+      }
+    );
+    return res.json({ token });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error inesperado en el servidor" });
+  }
 };
 
 //exportamos un objeto de funciones
@@ -74,5 +115,6 @@ module.exports = {
   updateUser,
   createUser,
   deleteUser,
-  loginDemo,
+  registerUser,
+  loginUser,
 };
