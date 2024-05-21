@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import parsePrice from "../functions/parsePrice";
 import { useNavigate } from "react-router-dom";
+import { useStore } from "../store/cart.store";
 
 const TarjetasContainer = styled.div`
   .box-1 {
@@ -182,6 +183,11 @@ const Home = () => {
   const [categorias, setCategorias] = useState([]);
   const [categoriaSeleccionada, setCategoriaseleccionada] = useState("0");
   const [precioSeleccionado, setPrecioSeleccionado] = useState("0");
+  const searchTerm = useStore((state) => state.searchTerm);
+
+  const filteredProducts = products.filter((product) =>
+    product.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   async function initialProducts() {
     await fetch("http://localhost:3000/products/")
@@ -222,6 +228,13 @@ const Home = () => {
 
     setProductosFiltrados(productosFiltradosPorPrecio);
   }, [categoriaSeleccionada, precioSeleccionado, products]);
+
+  useEffect(() => {
+    const filteredProducts = products.filter((product) =>
+      product.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setProductosFiltrados(filteredProducts);
+  }, [searchTerm]);
 
   const handleChangeCategoria = (event) => {
     setCategoriaseleccionada(event.target.value);

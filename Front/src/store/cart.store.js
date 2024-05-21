@@ -3,6 +3,7 @@ import { create } from "zustand";
 const useStore = create((set) => ({
   product: [],
   productsCart: [],
+  searchTerm: "",
   setProduct: (state) => set({ product: state }),
   setProductToCart: (productToCart) => {
     set((state) => {
@@ -23,6 +24,7 @@ const useStore = create((set) => ({
       }
     });
   },
+  setSearchTerm: (searchTerm) => set({ searchTerm }),
 }));
 
 export { useStore };

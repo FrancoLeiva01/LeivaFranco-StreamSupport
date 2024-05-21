@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAuthStore } from "../store/auth.store";
+import { useStore } from "../store/cart.store";
 
 const NavContainer = styled.nav`
 header {
@@ -103,6 +104,7 @@ header {
 function Navbar() {
   const isAuth = useAuthStore((state) => state.isAuth);
   const logout = useAuthStore((state) => state.logout);
+  const setSearchTerm = useStore((state) => state.setSearchTerm);
   const navigate = useNavigate();
 
   function handleClick() {
@@ -112,6 +114,9 @@ function Navbar() {
       navigate("/register");
     }
   }
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
   return (
     <NavContainer>
       <div className="head">
@@ -128,9 +133,10 @@ function Navbar() {
                 id="site-search"
                 name="buscador"
                 placeholder="Buscar..."
+                onChange={handleSearchChange}
               />
 
-              <button>Buscar</button>
+              {/* <button>Buscar</button> */}
             </div>
           )}
           {isAuth && <a onClick={handleClick}>Carrito</a>}

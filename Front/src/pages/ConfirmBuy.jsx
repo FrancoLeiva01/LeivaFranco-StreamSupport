@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useStore } from "../store/cart.store";
 import parsePrice from "../functions/parsePrice";
@@ -85,6 +85,7 @@ const ConfirmContainer = styled.div`
 `;
 
 const ConfirmBuy = () => {
+  const [purchaseConfirmed, setPurchaseConfirmed] = useState(false);
   const productsCart = useStore((state) => state.productsCart);
 
   if (productsCart.length === 0) {
@@ -92,8 +93,8 @@ const ConfirmBuy = () => {
       <ConfirmContainer>
         <div className="container-confirm">
           <div className="tarjeta-confirm">
-            <h3 className="titulo-confirm">Tu Carrito esta Vacío</h3>
-            <p>No tienes compras por realizar</p>
+            <h3 className="titulo-confirm">Tu Carrito está Vacío</h3>
+            <p>No tienes compras pendientes</p>
           </div>
         </div>
       </ConfirmContainer>
@@ -105,6 +106,11 @@ const ConfirmBuy = () => {
     0
   );
 
+  const handleConfirmPurchase = () => {
+    // Aquí agregaria la lógica adicional para enviar la información de la compra al servidor
+    setPurchaseConfirmed(true);
+  };
+
   return (
     <ConfirmContainer>
       <div className="container-confirm">
@@ -112,7 +118,7 @@ const ConfirmBuy = () => {
           <h2>Stream Support</h2>
         </div>
         <div className="tarjeta-confirm">
-          <h3 className="titulo-confirm">Confirmacion de Compra</h3>
+          <h3 className="titulo-confirm">Confirmación de Compra</h3>
           <div>
             {productsCart.map((product) => (
               <div key={product.product_id}>
@@ -125,16 +131,19 @@ const ConfirmBuy = () => {
           </div>
           <div className="separator"></div>
           <div className="envio">
-            <p>Envio Gratis</p>
+            <p>Envío Gratis</p>
           </div>
           <div className="separator"></div>
           <p>Precio Total: $ {parsePrice(totalPrice)}</p>
           <div>
             <p>
-              Direccion de entrega: Calle Evergreen Terrace 742 en Springfield
+              Dirección de entrega: Calle Evergreen Terrace 742 en Springfield
             </p>
           </div>
-          <button>Confirmar Compra</button>
+          <button onClick={handleConfirmPurchase}>Confirmar Compra</button>
+          {purchaseConfirmed && (
+            <p style={{ color: "green" }}>¡Compra realizada exitosamente!</p>
+          )}
         </div>
       </div>
     </ConfirmContainer>
